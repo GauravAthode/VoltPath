@@ -18,7 +18,6 @@ const shareRoutes = require("./routes/shareRoutes");
 const { FRONTEND_URL } = require("./config/envConfig");
 
 const app = express();
-
 // IMPORTANT: trust proxy (Render / reverse proxy) so secure cookies work correctly
 app.set("trust proxy", 1);
 
