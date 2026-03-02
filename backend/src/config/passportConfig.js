@@ -9,7 +9,7 @@ passport.use(
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
       // Force the callback URL to be the backend URL
-      callbackURL: 'http://localhost:5500/api/auth/google/callback',
+      callbackURL: process.env.GOOGLE_REDIRECT_URI,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
