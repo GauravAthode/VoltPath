@@ -115,7 +115,7 @@ const LandingPage = () => {
           transition={{ delay: 0.8 }}
           className="text-xs dark:text-dark-muted text-light-muted"
         >
-          © 2024 VoltPath. Powered by Open Charge Map, OpenWeatherMap & TomTom.
+          © 2024 VoltPath. Powered VoltPath
         </motion.p>
       </div>
 
