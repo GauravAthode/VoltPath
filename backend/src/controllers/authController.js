@@ -3,13 +3,66 @@ const { success, error } = require('../utils/responseHelper');
 
 const register = async (req, res) => {
   try {
-    const { email, name, password } = req.body;
-    if (!email || !name || !password) return error(res, 'Email, name and password are required', 400);
-    if (password.length < 6) return error(res, 'Password must be at least 6 characters', 400);
+    let { email, name, password } = req.body || {};
+
+    // Basic type checks
+    if (
+      typeof email !== "string" ||
+      typeof name !== "string" ||
+      typeof password !== "string"
+    ) {
+      return error(res, "Invalid input data", 400);
+    }
+
+    // Trim input
+    email = email.trim().toLowerCase();
+    name = name.trim();
+    password = password.trim();
+
+    // Required field check
+    if (!email || !name || !password) {
+      return error(res, "Email, name and password are required", 400);
+    }
+
+    // Length limits
+    if (name.length < 2 || name.length > 50) {
+      return error(res, "Name must be between 2 and 50 characters", 400);
+    }
+
+    if (email.length > 254) {
+      return error(res, "Invalid email", 400);
+    }
+
+    // Email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return error(res, "Invalid email format", 400);
+    }
+
+    // Strong password check
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_+\-=[\]{};':"\\|,.<>/?]).{8,64}$/;
+
+    if (!passwordRegex.test(password)) {
+      return error(
+        res,
+        "Password must be 8-64 characters and include uppercase, lowercase, number, and special character",
+        400
+      );
+    }
+
     const result = await registerUser(email, name, password);
-    return success(res, result, 'Registration successful', 201);
+
+    return success(res, result, "Registration successful", 201);
   } catch (err) {
-    return error(res, err.message, err.message.includes('already') ? 409 : 500);
+    console.error("Register error:", err);
+
+    // Do not expose internal error details
+    if (err.message && err.message.toLowerCase().includes("already")) {
+      return error(res, "User already exists", 409);
+    }
+
+    return error(res, "Internal server error", 500);
   }
 };
 
