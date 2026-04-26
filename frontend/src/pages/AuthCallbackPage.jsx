@@ -33,6 +33,7 @@ const AuthCallbackPage = () => {
         toast.error('Authentication failed. Please try again.');
         navigate('/');
         return;
+        
       }
     }
 
