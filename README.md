@@ -1,4 +1,4 @@
-# 🚗 VoltPath - Smart EV Route Planning & Charging Station Platform
+#  VoltPath - Smart EV Route Planning & Charging Station Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/MERN-Stack-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MERN Stack">
