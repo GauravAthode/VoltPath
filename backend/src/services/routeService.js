@@ -6,6 +6,7 @@ const OSRM_BASE = 'http://router.project-osrm.org/route/v1/driving';
 const NOMINATIM_BASE = 'https://nominatim.openstreetmap.org/search';
 
 const buildNavInstruction = (step) => {
+  
   const { maneuver, name } = step;
   if (!maneuver) return { text: `Continue on ${name || 'road'}`, type: 'straight', modifier: '' };
 
